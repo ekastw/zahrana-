@@ -1,7 +1,7 @@
 //var ref_location = decodeURI(window.location).split(AppClassName)[0];
 var bank_option_ops = '';
 function bank_option(){
-	var link_url = base_url+'/json_data/bank?function=get_api',
+	var link_url = '/json_data/bank?function=get_api',
 		target_div = $('.bank_option');
 	$.ajax({
 		type:"GET",
@@ -24,7 +24,7 @@ function bank_option(){
 }
 var categories_option_ops = '';
 function categories_option(){
-	var link_url = base_url+'/json_data/product_categories?function=get_api',
+	var link_url = '/json_data/product_categories?function=get_api',
 		target_div = $('.categories_option');
 	$.ajax({
 		type:"GET",
@@ -47,7 +47,7 @@ function categories_option(){
 	})
 }
 function courier_option(target_div,courier_id){
-	var link_url = base_url+'/json_data/courier',
+	var link_url = '/json_data/courier',
 		target_div = $('.courier_option');
 		target_div.html('<option disabled selected>Loading Kurir...</option>');
 	$.ajax({
@@ -81,7 +81,7 @@ function courier_option(target_div,courier_id){
 	})	
 }
 function courier_cd_option(){
-	var link_url = base_url+'/json_data/courier',
+	var link_url = '/json_data/courier',
 		target_div = $('.courier_cd_option');
 		target_div.html('<option disabled selected>Loading Kurir...</option>');
 	$.ajax({
@@ -116,7 +116,7 @@ function province_option(id,target_div,target_province){
 	}if (target_div=='' || target_div==undefined) {
 		target_div = '.province_option';
 	}
-	var link_url = base_url+'/json_data/province'+get,
+	var link_url = '/json_data/province'+get,
 		target_div = $(target_div);
 		target_div.html('<option disabled selected>Loading Provinsi...</option>');
 	$.ajax({
@@ -165,7 +165,7 @@ function city_option(province_id,city_id,target_div,target_city){
 	}if (target_div=='' && target_div==undefined) {
 		target_div = '.city_option';
 	}
-	var link_url = base_url+'/json_data/city'+get,
+	var link_url = '/json_data/city'+get,
 		target_div = $(target_div);
 		target_div.html('<option disabled selected>Loading Kabupaten...</option>');
 	$.ajax({
@@ -210,7 +210,7 @@ function subdistrict_option(city,target_div,target_subdisctrict){
 	}if (target_div=='' || target_div==undefined) {
 		target_div = '.subdistrict_option';
 	}
-	var link_url = base_url+'/json_data/subdistrict'+get,
+	var link_url = '/json_data/subdistrict'+get,
 		target_div = $(target_div);
 		target_div.html('<option disabled selected>Loading Kecamatan...</option>');
 	$.ajax({
@@ -474,7 +474,7 @@ $(document).on('submit','[name="catalogue-form"]',function(event){
 			sufix = sufix.join('&');
 		}
 	}
-	new_state = base_url+'/katalog/'+filter;
+	new_state = '/katalog/'+filter;
 	if (window.location != new_state) {
 		window.history.pushState({ path: new_state}, '', new_state);
 		render_catalogue_products(sufix);
@@ -496,7 +496,7 @@ function render_catalogue_products(sufix){
 	if (sufix!=undefined || sufix=='') {
 		filter = sufix;
 	}
-	var link_url = base_url+'/json_data/catalogue?'+filter;
+	var link_url = '/json_data/catalogue?'+filter;
 	$.ajax({
 		type:"GET",
 		url:link_url,
@@ -558,11 +558,11 @@ $(document).on('change','[name="check_out_transaction"] .courier_option',functio
 		courier_id = $('[name="check_out_transaction"] [name="courier_id"]').val(),
 		city_id = $('[name="check_out_transaction"] [name="city_id"]').val(),
 		subdistrict_id = $('[name="check_out_transaction"] [name="subdistrict_id"]').val(),
-		link_url = base_url+'/json_data/cost?destination='+city_id+'&destinationType=city&id_trans='+id_trans+'&courier_id='+courier_id,
+		link_url = '/json_data/cost?destination='+city_id+'&destinationType=city&id_trans='+id_trans+'&courier_id='+courier_id,
 		target_div = $('[load-courier-on-checkout]');
 
 		if (parseInt(subdistrict_id)>0) {
-			link_url = base_url+'/json_data/cost?destination='+subdistrict_id+'&destinationType=subdistrict&id_trans='+id_trans+'&courier_id='+courier_id;			
+			link_url = '/json_data/cost?destination='+subdistrict_id+'&destinationType=subdistrict&id_trans='+id_trans+'&courier_id='+courier_id;			
 		}if (parseInt(courier_id)>0 || parseInt(courier_id)=='') {
 			load_courier_services(link_url);
 		}else{
@@ -686,7 +686,7 @@ $(document).on('input','[user-reg] [name="password"],[user-reg] [name="re_passwo
 	}
 })
 
-var required_folder = base_url+'/user/required/',
+var required_folder = '/user/required/',
 	crud_file = required_folder+'crud?';
 $(document).on('click','tr[data-href]',function(event){
 	event.preventDefault();
@@ -848,7 +848,7 @@ $(document).on('submit','[filter-box]',function(event){
 			array.push('c='+categories.join(','));
 		}
 	}if (array.length>0) {
-		location.href=base_url+'/search?'+array.join('&');
+		location.href='/search?'+array.join('&');
 	}
 })
 function img_file(file_url,attc,real_file){
@@ -1010,7 +1010,7 @@ var check_temporary_cart = '';
 function render_cart_data(){
 	var target_div = $('#modal-cart-list .modal-body'),
     top_cart_status = '',
-		link_url = base_url+'/json_data/cart',
+		link_url = '/json_data/cart',
 		items = 0;
 	$.ajax({
 		type:"GET",
@@ -1039,12 +1039,12 @@ function render_cart_data(){
 								top_cart_status += val.id+''+val.qty;
 								hasil += '<tbody cart-detail-top-'+val.id+'>'+cart_detail_top(val)+'</tbody>';
 							})
-							hasil += '<tr><td align="right" colspan="2">Total</td><td align="right" detail-tmp-cart-top-grand-price>'+convert_Rp(Math.ceil(grand_price))+'</td></tr></table></div><a href="'+base_url+'/keranjang?inv='+data[i].trans_cd+'" class="btn btn-outline-success btn-sm">Check Out</a><button type="button" class="btn btn-success pull-right" data-dismiss="modal">produk lain</button></div>';
+							hasil += '<tr><td align="right" colspan="2">Total</td><td align="right" detail-tmp-cart-top-grand-price>'+convert_Rp(Math.ceil(grand_price))+'</td></tr></table></div><a href="/keranjang?inv='+data[i].trans_cd+'" class="btn btn-outline-success btn-sm">Check Out</a><button type="button" class="btn btn-success pull-right" data-dismiss="modal">produk lain</button></div>';
 						}
 					}
 				}else{
 					top_cart_status = 'no-item';
-					hasil = '<h5 align="center" style="margin-top:10px"><label>Tidak Ada Item Dalam Keranjang</label></h5><p align="center"><a href="'+base_url+'/user/transaksi/">Lihat Riwayat Transaksi</a></p>';
+					hasil = '<h5 align="center" style="margin-top:10px"><label>Tidak Ada Item Dalam Keranjang</label></h5><p align="center"><a href="/user/transaksi/">Lihat Riwayat Transaksi</a></p>';
 				}
 			};
 			if (items>0) {
@@ -1096,7 +1096,7 @@ if (cart_btn.length==1) {
 	render_cart_btn();
 }
 function render_cart_btn(){
-	var link_url = base_url+'/json_data/cart',
+	var link_url = '/json_data/cart',
 		items = 0;
 	$.ajax({
 		type:"GET",
@@ -1125,7 +1125,7 @@ if (btn_form.length==1) {
 }
 function render_form_btn(){
 	var id = btn_form.attr('id'),
-		link_url = base_url+'/json_data/product_btn?id='+id;
+		link_url = '/json_data/product_btn?id='+id;
 	$.ajax({
 		type:"GET",
 		url:link_url,
@@ -1166,7 +1166,7 @@ $(document).on('submit','[search-box]',function(event){
 		dataObj[field.name] = field.value;
 	});
 	if (dataObj['search']!=undefined) {
-		location.href = base_url+'/search?k='+dataObj['search'];
+		location.href = '/search?k='+dataObj['search'];
 	}
 })
 
@@ -1330,7 +1330,7 @@ $(document).on('change','[variant-option-on-product]',function(){
 	var id_option = $('[name="buy_product"]').find('.p-option.active').attr('id-option'),
 		id_variant = $(this).val(),
 		id_product = $('[name="buy_product"] [name="id_product"]').val();
-		link_url = base_url+'/json_data/get_stock?id_option='+id_option+'&id_variant='+id_variant+'&id_product='+id_product;
+		link_url = '/json_data/get_stock?id_option='+id_option+'&id_variant='+id_variant+'&id_product='+id_product;
 	$('[product-stock-display]').css({'opacity':'0','-webkit-animation':"die_time .3s"});
 	$.ajax({
 		type:"GET",
@@ -1381,7 +1381,7 @@ $(document).on('click','.p-option',function(event){
 	var id_option = $('[name="buy_product"]').find('.p-option.active').attr('id-option'),
 		id_variant = $('[variant-option-on-product]').val(),
 		id_product = $('[name="buy_product"] [name="id_product"]').val();
-		link_url = base_url+'/json_data/get_stock?id_option='+id_option+'&id_variant='+id_variant+'&id_product='+id_product;
+		link_url = '/json_data/get_stock?id_option='+id_option+'&id_variant='+id_variant+'&id_product='+id_product;
 	$('[product-stock-display]').css({'opacity':'0','-webkit-animation':"die_time .3s"});
 	$.ajax({
 		type:"GET",
@@ -1405,7 +1405,7 @@ function get_default_stock(){
 		var id_option = $('[name="buy_product"]').find('.p-option.active').attr('id-option'),
 			id_variant = $('[variant-option-on-product]').val(),
 			id_product = $('[name="buy_product"] [name="id_product"]').val();
-			link_url = base_url+'/json_data/get_stock?id_option='+id_option+'&id_variant='+id_variant+'&id_product='+id_product;
+			link_url = '/json_data/get_stock?id_option='+id_option+'&id_variant='+id_variant+'&id_product='+id_product;
 		$('[product-stock-display]').css({'opacity':'0','-webkit-animation':"die_time .2s"});
 		$.ajax({
 			type:"GET",
@@ -1575,12 +1575,12 @@ function home_cart_list(link_url,target_div){
 	  					table += '<tr><th colspan="3" class="text-left">Total</th><th class="text-right" total-cart-on-transaction-'+data.id+'>'+convert_Rp(data.total_cart)+'</th></tr>';
 	  					table += '<tr><th colspan="3" class="text-left">Berat</th><th class="text-right"><span total-weight-cart-on-transaction-'+data.id+'>'+data.total_weight+'</span> gram</th></tr>';
 	  					hasil += '<div class="table-responsive '+effect+'"><table class="v-middle checkout-table">'+table+'<table></di>';
-	  					hasil += '<p><button type="button" class="btn btn-outline-info" href="'+base_url+'/keranjang?inv='+data.trans_cd+'&courier"><i class="fa fa-paper-plane"></i> Lanjut Pengiriman & Pembayaran</button></p>';
+	  					hasil += '<p><button type="button" class="btn btn-outline-info" href="/keranjang?inv='+data.trans_cd+'&courier"><i class="fa fa-paper-plane"></i> Lanjut Pengiriman & Pembayaran</button></p>';
 	  				}else{
 	  					hasil += '<h5 align="center"><label>Tidak ada item dalam transaksi ini.</label></h5>';
 					}          
 				}if(trans_status>2){
-					location.href=base_url+'/keranjang?inv='+data.trans_cd+'&finish';          
+					location.href='/keranjang?inv='+data.trans_cd+'&finish';          
 				}
 			}else{
 				hasil = '<h4 align="center"><label>Maaf transaksi yang anda cari tidak ada di database kami.</label></h4>';
@@ -1648,9 +1648,9 @@ if ($("[cart-courier-active-address]").length>0) {
   if (courier_id_val>0){
     courier_option('[cart-courier-active-address] [name="courier_id"]',courier_id_val);
 	var id_trans = $('[name="check_out_transaction"] [name="id_trans"]').val(),
-		link_url = base_url+'/json_data/cost?destination='+city_id_val+'&destinationType=city&id_trans='+id_trans+'&courier_id='+courier_id_val;
+		link_url = '/json_data/cost?destination='+city_id_val+'&destinationType=city&id_trans='+id_trans+'&courier_id='+courier_id_val;
 	if (parseInt(subdistrict_id_val)>0) {
-		link_url = base_url+'/json_data/cost?destination='+subdistrict_id_val+'&destinationType=subdistrict&id_trans='+id_trans+'&courier_id='+courier_id_val;
+		link_url = '/json_data/cost?destination='+subdistrict_id_val+'&destinationType=subdistrict&id_trans='+id_trans+'&courier_id='+courier_id_val;
 	}
     load_courier_services(link_url)
   }else{
@@ -1698,7 +1698,7 @@ window.onresize = function(){
 				e.preventDefault();
 				var id_contact = $(this).attr('contact-id'),
 					location_href = $(this).attr('href'),
-					rec_link = base_url+'/crud_data?function=contact_hits&id='+id_contact;
+					rec_link = '/crud_data?function=contact_hits&id='+id_contact;
 				window.open(location_href, '_blank');
 				$.ajax({
 					type:"GET",
@@ -1868,7 +1868,7 @@ window.onresize = function(){
 		}
 			function open_captcha(){
 				$('.image-captcha').fadeOut(100);
-				var url = base_url+'/render_captcha';
+				var url = '/render_captcha';
 				$.ajax({
 					type : 'GET',
 					url : url,
@@ -1895,7 +1895,7 @@ function confirm_result(msg){
 }
 */
 function education_option(){
-	var link_url = base_url+"/json_data/education",
+	var link_url = "/json_data/education",
 		target_div = $('.education_option');
 		target_div.html('<option value="" selected disabled>Loading Data</option>')
 	$.ajax({
@@ -2200,7 +2200,7 @@ function after_submit(form_name,data){
 	if (form_name=='check_out_transaction') {
 		var inv = $('[name="check_out_transaction"]').attr("inv-num");
 		if (data=='1' || data=='11') {
-			location.href = base_url+'/keranjang?inv='+inv+'&payment'
+			location.href = '/keranjang?inv='+inv+'&payment'
 		}
 	}
 	if (form_name=='delete_from_cart') {
@@ -2297,7 +2297,7 @@ function after_submit(form_name,data){
   if (form_name=="payment_check_out") {
     var inv = $('[name="payment_check_out"]').attr("inv-num");
     if (data=='1' || data=='11') {
-      location.href = base_url+'/keranjang?inv='+inv+'&finish'
+      location.href = '/keranjang?inv='+inv+'&finish'
     }
   }if (form_name=='delete_tmp_item_top_cart') {
     var data = JSON.parse(data);
